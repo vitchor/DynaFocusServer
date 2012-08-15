@@ -35,7 +35,7 @@ class UserAdmin(admin.ModelAdmin):
         ('Name', {'fields': ['name']}),
     ]
     inlines = [FOFInline]
-    list_display = ('name', 'device_id')    
+    list_display = ('device_id', 'name')    
 
 
 admin.site.register(User, UserAdmin)

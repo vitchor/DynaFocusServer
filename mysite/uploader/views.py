@@ -37,19 +37,19 @@ def image(request):
     
     try:
         frame_user = User.objects.get(device_id=user_device_id)
-    except (KeyError, Choice.DoesNotExist):
+    except (KeyError, User.DoesNotExist):
         frame_user = User(name='', device_id=user_device_id)
         frame_user.save()
         
     try:
         frame_FOF = FOF.objects.get(name=fof_name)
-    except (KeyError, Choice.DoesNotExist):
+    except (KeyError, FOF.DoesNotExist):
         frame_FOF = frame_user.fof_set.create(name = fof_name, size = fof_size)
         
     ###TODO###
     #Creates the image key with the following format:
     #frame_name = <device_id>_<fof_name>_<frame_index>.jpeg
-    frame_name = device_id
+    frame_name = user_device_id
     frame_name += '_'
     frame_name += fof_name
     frame_name += '_'
