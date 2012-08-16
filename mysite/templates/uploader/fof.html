@@ -17,8 +17,8 @@
             
             var newImageIndex = 0;
             
-            var newImageOpacity = 0;
-            var oldImageOpacity = 100;            
+            var newImageOpacity = 0.00;
+            var oldImageOpacity = 100.00;            
             
             var timer = 0;
             
@@ -65,30 +65,30 @@
                         newImageIndex++;
                     };
                     
-                    timer = setInterval("homefadeTrans();", 30);    
+                    timer = setInterval("homefadeTrans();", 0.25);    
                 }
             }
             
             function homefadeTrans() {
-                if (newImageOpacity == 100) {
+                if (newImageOpacity >= 100) {
                     clearTimeout(timer);
                     
                     timer = 0;
                     newImageOpacity = 0;
                     oldImageOpacity = 100;
                     
-                    homefade();
+                    setTimeout("homefade();", 700);
                     
                 } else {
                 
                     newImage.style.opacity = newImageOpacity/100;
                     newImage.style.filter = "alpha(opacity="+newImageOpacity+")";
-                    newImageOpacity = newImageOpacity+1;
+                    newImageOpacity = newImageOpacity+2.5;
                 
                     if (oldImage) {
-                        oldImage.style.opacity = oldImageOpacity/100;
-                        oldImage.style.filter = "alpha(opacity="+oldImageOpacity+")";
-                        oldImageOpacity = oldImageOpacity-1;
+                        //oldImage.style.opacity = oldImageOpacity/100;
+                        //oldImage.style.filter = "alpha(opacity="+oldImageOpacity+")";
+                        //oldImageOpacity = oldImageOpacity-1;
                     }
                 }
             }
