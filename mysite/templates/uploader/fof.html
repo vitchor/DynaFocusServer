@@ -4,7 +4,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>New Web Project</title>
-
+        
         <script type="text/javascript">
             var imgsArray = new Array();
             
@@ -16,7 +16,6 @@
             var oldImage;
             
             var newImageIndex = 0;
-            var oldImageIndex = imgsArray.length-1;
             
             var newImageOpacity = 0;
             var oldImageOpacity = 100;            
@@ -24,14 +23,12 @@
             var timer = 0;
             
             var homediv;
-                        
+            
             function homefade() {
                 if (!homediv) {
                     homediv = document.getElementById("homeimg");
-                }else{
-                    // create image and fade it out 
                     
-                    
+                } else {
                     
                     if (newImage) {
                         
@@ -43,10 +40,8 @@
                     }
                     
                     newImage = document.createElement('img');
-                    
                     newImage.src = imgsArray[newImageIndex];
                     newImage.id = "newImg"
-                    
                     newImage.style.position = 'absolute';
                     newImage.style.opacity = "0";
                     newImage.style.filter = "alpha(opacity=0)";
@@ -56,16 +51,16 @@
                         var big_coordinates=getXYpos(oldImage);
                         var bp_x = big_coordinates['x'];
                         var bp_y = big_coordinates['y'];
-                    
+                        
                         newImage.style.left = bp_x + 'px';
                         newImage.style.top = bp_y + 'px';
                     }
                     
-                    // add the new element as child for the container
                     homediv.appendChild(newImage);
                     
                     if (newImageIndex == (imgsArray.length-1)) {
                         newImageIndex = 0;
+                        
                     } else {
                         newImageIndex++;
                     };
@@ -75,78 +70,44 @@
             }
             
             function homefadeTrans() {
-                
                 if (newImageOpacity == 100) {
                     clearTimeout(timer);
+                    
                     timer = 0;
                     newImageOpacity = 0;
                     oldImageOpacity = 100;
                     
                     homefade();
-                    return false;
-                };
+                    
+                } else {
                 
-                newImage.style.opacity = newImageOpacity/100;
-                newImage.style.filter = "alpha(opacity="+newImageOpacity+")";
-                newImageOpacity = newImageOpacity+1;
+                    newImage.style.opacity = newImageOpacity/100;
+                    newImage.style.filter = "alpha(opacity="+newImageOpacity+")";
+                    newImageOpacity = newImageOpacity+1;
                 
-                if (oldImage) {
-                    oldImage.style.opacity = oldImageOpacity/100;
-                    oldImage.style.filter = "alpha(opacity="+oldImageOpacity+")";
-                    oldImageOpacity = oldImageOpacity-1;
+                    if (oldImage) {
+                        oldImage.style.opacity = oldImageOpacity/100;
+                        oldImage.style.filter = "alpha(opacity="+oldImageOpacity+")";
+                        oldImageOpacity = oldImageOpacity-1;
+                    }
                 }
             }
-        
-            function fadeOut(id, time){
-                fade(id,time,100,0);
-            }
-        
-            function fadeIn(id, time){
-                fade(id,time,0,100);
-            }
-        
-            // 'id' is the element's identificator; 'time' is defined in seconds
-            function fade(element, time, ini, fin) {  
-                //var element = document.getElementById(id);  
-                var opacity = ini;  
-                var inc;  
-                if (fin >= ini) {   
-                    inc = 2;   
-                } else {  
-                    inc = -2;  
-                }  
-                timer = (time * 1000) / 50;  
-                var i = setInterval(  
-                    function() {  
-                        if ((inc > 0 && opacity >= fin) || (inc < 0 && opacity <= fin)) {  
-                            clearInterval(i);  
-                        }  
-                        setOpacity(element, opacity);  
-                        opacity += inc;  
-                    }, timer);  
-            }          
-
-            // Set opacity in percentage (0 to 100)
-            function setOpacity(element, value) {
-                element.style.opacity = value/100;
-                element.style.filter = 'alpha(opacity=' + value*100 + ')';
-            }
             
-            function getXYpos(elem)
-            {
-               if (!elem)
-               {
+            function getXYpos(elem) {
+                
+               if (!elem) {
                   return {"x":0,"y":0};
                }
-               var xy={"x":elem.offsetLeft,"y":elem.offsetTop}
-               var par=getXYpos(elem.offsetParent);
-               for (var key in par)
-               {
-                  xy[key]+=par[key];
+               
+               var xy = {"x":elem.offsetLeft,"y":elem.offsetTop}
+               var par = getXYpos(elem.offsetParent);
+               
+               for (var key in par) {
+                  xy[key] += par[key];
                }
+               
                return xy;
             }
-            
             
         </script>
 </head>
