@@ -45,8 +45,10 @@ def image(request):
         frame_FOF = FOF.objects.get(name=fof_name)
     except (KeyError, FOF.DoesNotExist):
         frame_FOF = frame_user.fof_set.create(name = fof_name, size = fof_size)
-        
+    
     ###TODO###
+    #focal point
+    
     #Creates the image key with the following format:
     #frame_name = <device_id>_<fof_name>_<frame_index>.jpeg
     frame_name = user_device_id
@@ -56,13 +58,12 @@ def image(request):
     frame_name += frame_index
     frame_name += '.jpeg'
         
-    ###TODO###
     #Creates url:
     #frame_url = <s3_url>/<frame_name>
     frame_url = 'http://s3.amazonaws.com/dyfocus/'
     frame_url += frame_name
     
-    frame = frame_FOF.frame_set.create(url=frame_url,index = frame_index)
+    frame = frame_FOF.frame_set.create(url = frame_url, index = frame_index)
     
     b = conn.get_bucket('dyfocus')
     k = b.new_key(frame_name)
@@ -72,3 +73,13 @@ def image(request):
     
     return render_to_response('uploader/index.html', {},
                                context_instance=RequestContext(request))
+                               
+                               
+def fof(request, fof_name):
+    fof = get_object_or_404(FOF, name=fof_name)
+    
+    frame_list = fof.frame_set.all().order_by('index')[:5]
+    
+    return render_to_response('uploader/fof.html', {'frame_list':frame_list},
+                               context_instance=RequestContext(request))
+    

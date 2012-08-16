@@ -1,0 +1,123 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>New Web Project</title>
+        <script type="text/javascript">
+            var newimg;
+            var imgsArray = new Array();
+            
+            
+            {% for frame in frame_list %}
+                imgsArray[{{ frame.index }}] = "{{ frame.url }}";
+            {% endfor %}
+            
+            
+            var newimgInc = 1;
+            var timer = 0;
+            var firstTime = true;
+
+
+        var homediv;
+            
+        function homefade() {
+            if(firstTime){
+                homediv = document.getElementById("homeimg");
+                firstTime = false;
+            }else{
+                // create image and fade it out 
+                newimg = document.createElement("img");
+                newimg.src = imgsArray[newimgInc];
+                newimg.style.opacity = "0";
+                newimg.style.filter = "alpha(opacity=0)";
+                newimg.width = "700"
+                homediv.appendChild(newimg);
+                if (newimgInc == (imgsArray.length-1)) {
+                    newimgInc = 0;
+                } else {
+                    newimgInc++;
+                };
+                fadeIn
+                timer = setInterval("homefadeTrans();", 10);    
+            }
+        }
+
+        var trans = 0;
+        function homefadeTrans() {
+        
+            if (trans == 100) {
+                clearTimeout(timer);
+                timer = 0;
+                trans = 0;
+                
+                homediv.removeChild(homediv.getElementsByTagName("img")[0]);        
+                setTimeout("homefade();", 1000);
+                return false;
+            };
+        
+            newimg.style.opacity = trans/100;
+            newimg.style.filter = "alpha(opacity="+trans+")";
+            trans = trans+1;
+        }
+        
+            function exibir() {
+                //Informamos o ID da tag IMG que irá exibir a galeria
+                var targetId = "galeria";
+                
+                // FADE OUT
+                // CHANGE SRC
+                // FADE IN            
+                image.src = images[auxLoop];
+                auxLoop++
+                if(auxLoop>2){
+                    auxLoop = 0;
+                }
+                setTimeout (function() {exibir()} , 1000, "JavaScript");
+            }        
+        
+        function fadeOut(id, time){
+            fade(id,time,100,0);
+        }
+        
+        function fadeIn(id, time){
+            fade(id,time,0,100);
+        }
+        
+        // 'id' is the element's identificator; 'time' is defined in seconds
+        function fade(element, time, ini, fin) {  
+            //var element = document.getElementById(id);  
+            var opacity = ini;  
+            var inc;  
+            if (fin >= ini) {   
+                inc = 2;   
+            } else {  
+                inc = -2;  
+            }  
+            timer = (time * 1000) / 50;  
+            var i = setInterval(  
+                function() {  
+                    if ((inc > 0 && opacity >= fin) || (inc < 0 && opacity <= fin)) {  
+                        clearInterval(i);  
+                    }  
+                    setOpacity(element, opacity);  
+                    opacity += inc;  
+                }, timer);  
+        }          
+
+        // Set opacity in percentage (0 to 100)
+        function setOpacity(element, value) {
+            element.style.opacity = value/100;
+            element.style.filter = 'alpha(opacity=' + value*100 + ')';
+        }
+        </script>
+</head>
+    <body onload="homefade()">
+    SLIDESHOW
+    <a href="#" onclick="javascript: homefade();">Fade</a>
+    <hr />
+    <div id="homeimg" >
+        
+    </div>
+    </body>
+</html>
