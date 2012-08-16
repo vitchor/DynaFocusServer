@@ -50,7 +50,7 @@
                     newImage.style.position = 'absolute';
                     newImage.style.opacity = "0";
                     newImage.style.filter = "alpha(opacity=0)";
-                    newImage.width = "500"
+                    newImage.width = "850"
                     
                     if (oldImage) {
                         var big_coordinates=getXYpos(oldImage);
@@ -75,14 +75,14 @@
             }
             
             function homefadeTrans() {
-            
+                
                 if (newImageOpacity == 100) {
                     clearTimeout(timer);
                     timer = 0;
                     newImageOpacity = 0;
                     oldImageOpacity = 100;
-        
-                    setTimeout("homefade();", 1);
+                    
+                    homefade();
                     return false;
                 };
                 
@@ -154,9 +154,6 @@
     dyfocus
     <a href="#" onclick="javascript: homefade();">Start</a>
     <hr />
-    <div id="homeimg" >
-        <img id ="img1"/>
-        <img id ="img2"/>        
-    </div>
+    <div id="homeimg" />
     </body>
 </html>
