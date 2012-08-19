@@ -4,9 +4,10 @@
 
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        
         <title>New Web Project</title>
         
-         <script type="text/javascript" src="{{ STATIC_URL }}fof.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}fof.js"></script>
         
         <script type="text/javascript">
             
@@ -16,16 +17,26 @@
                 imgsArray[{{ frame.index }}] = "{{ frame.url }}";
             {% endfor %}
             
+            window.onload=homefade;
+            
         </script>
         
     </head>
     
-    <body onload="homefade()">
+    <body>
         
-        dyfocus <a href="#" onclick="javascript: homefade();">Start</a>
+        <a href="/uploader/{{device_id_value}}/user/{{prev_fof_name}}/fof_name/">PREV</a>
+        dyfocus
+        <a href="/uploader/{{device_id_value}}/user/{{next_fof_name}}/fof_name/">NEXT</a>
+        
         <hr/>
         
-        <div id="homeimg" />
+        <div id="homeimg"/>
+        
+        <script>
+            //call after page loaded
+            homefade();
+        </script>
         
     </body>
     

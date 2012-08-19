@@ -1,4 +1,5 @@
 # Django settings for mysite project.
+import os
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -10,7 +11,7 @@ ADMINS = (
 MANAGERS = ADMINS
 
 DATABASES = {
-    'default': {
+    'default': {    
         'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
         'NAME': 'poll',                      # Or path to database file if using sqlite3.
         'USER': 'root',                      # Not used with sqlite3.
@@ -56,18 +57,14 @@ MEDIA_URL = ''
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/home/media/media.lawrence.com/static/"
-STATIC_ROOT = ''
+STATIC_ROOT = '/static/'
 
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
 STATIC_URL = '/static/'
 
 # Additional locations of static files
-STATICFILES_DIRS = (
-    # Put strings here, like "/home/html/static" or "C:/www/django/static".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
-)
+STATICFILES_DIRS = (os.path.join('/Users/marciarozenfeld/DynaFocusServer/mysite/', 'uploader', 'static'),)
 
 # List of finder classes that know how to find static files in
 # various locations.
